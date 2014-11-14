@@ -1,0 +1,155 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://gazpacho.sicem.biz/gazpacho-0.1.dtd">
+<glade-interface>
+    <widget class="GtkWindow" id="window1">
+        <property name="default_height">380</property>
+        <property name="default_width">640</property>
+        <property name="mnemonics_visible">False</property>
+        <property name="title" context="yes" translatable="yes">openlattice</property>
+        <property name="visible">True</property>
+        <signal handler="on_quit" name="destroy"/>
+        <child>
+            <widget class="GtkHBox" id="hbox1">
+                <property name="spacing">1</property>
+                <property name="visible">True</property>
+                <child>
+                    <widget class="GtkVBox" id="vbox1">
+                        <property name="border_width">12</property>
+                        <property name="spacing">5</property>
+                        <property name="visible">True</property>
+                        <child>
+                            <widget class="GtkDrawingArea" id="drawingarea1">
+                                <property name="app_paintable">True</property>
+                                <property name="height_request">600</property>
+                                <property name="sensitive">False</property>
+                                <property name="visible">True</property>
+                                <property name="width_request">600</property>
+                            </widget>
+                            <packing>
+                                <property name="padding">10</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <widget class="GtkButton" id="botao_comecar">
+                                <property name="focus_on_click">False</property>
+                                <property name="is_focus">True</property>
+                                <property name="label" context="yes" translatable="yes">Comecar</property>
+                                <property name="visible">True</property>
+                                <signal handler="funcao_comecar" name="clicked"/>
+                            </widget>
+                            <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="padding">5</property>
+                                <property name="position">1</property>
+                            </packing>
+                        </child>
+                    </widget>
+                </child>
+                <child>
+                    <widget class="GtkVBox" id="vbox2">
+                        <property name="visible">True</property>
+                        <child>
+                            <widget class="GtkFrame" id="frame3">
+                                <property name="border_width">14</property>
+                                <property name="label" context="yes" translatable="yes"> Configurações </property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <widget class="GtkVBox" id="vbox3">
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <widget class="GtkHBox" id="hbox4">
+                                                <property name="visible">True</property>
+                                                <child>
+                                                    <widget class="GtkLabel" id="label_tamrede">
+                                                        <property name="has_tooltip">True</property>
+                                                        <property name="label" context="yes" translatable="yes"> Tamanho da rede: </property>
+                                                        <property name="tooltip_markup" context="yes" translatable="yes">Tamanho da rede (lado) em número de sítios.</property>
+                                                        <property name="tooltip_text" context="yes" translatable="yes">Tamanho da rede (lado) em número de sítios.</property>
+                                                        <property name="visible">True</property>
+                                                        <property name="xalign">0.0</property>
+                                                    </widget>
+                                                </child>
+                                                <child>
+                                                    <widget class="GtkLabel" id="label2">
+                                                        <property name="visible">True</property>
+                                                        <property name="xalign">0.0</property>
+                                                    </widget>
+                                                    <packing>
+                                                        <property name="position">1</property>
+                                                    </packing>
+                                                </child>
+                                                <child>
+                                                    <widget class="GtkEntry" id="tam_rede">
+                                                        <property name="is_focus">True</property>
+                                                        <property name="text" context="yes" translatable="yes">100</property>
+                                                        <property name="visible">True</property>
+                                                    </widget>
+                                                    <packing>
+                                                        <property name="padding">8</property>
+                                                        <property name="position">2</property>
+                                                    </packing>
+                                                </child>
+                                            </widget>
+                                            <packing>
+                                                <property name="expand">False</property>
+                                            </packing>
+                                        </child>
+                                    </widget>
+                                </child>
+                            </widget>
+                            <packing>
+                                <property name="expand">False</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <widget class="GtkFrame" id="frame2">
+                                <property name="border_width">14</property>
+                                <property name="label" context="yes" translatable="yes"> PMC </property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <widget class="GtkLabel" id="label_pmc">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">1.0</property>
+                                    </widget>
+                                </child>
+                            </widget>
+                            <packing>
+                                <property name="expand">False</property>
+                                <property name="position">1</property>
+                            </packing>
+                        </child>
+                        <child>
+                            <widget class="GtkFrame" id="frame1">
+                                <property name="border_width">14</property>
+                                <property name="label" context="yes" translatable="yes"> Status </property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <widget class="GtkLabel" id="label_status">
+                                        <property name="ellipsize">end</property>
+                                        <property name="justify">center</property>
+                                        <property name="label" context="yes" translatable="yes">Status do programa</property>
+                                        <property name="mnemonic_widget">label_status</property>
+                                        <property name="single_line_mode">True</property>
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0.0</property>
+                                    </widget>
+                                </child>
+                            </widget>
+                            <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="padding">1</property>
+                                <property name="position">2</property>
+                            </packing>
+                        </child>
+                    </widget>
+                    <packing>
+                        <property name="expand">False</property>
+                        <property name="position">1</property>
+                    </packing>
+                </child>
+            </widget>
+        </child>
+    </widget>
+</glade-interface>

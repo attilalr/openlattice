@@ -1,0 +1,187 @@
+#!/usr/bin/python
+
+import pygtk, gtk, sys, gobject, numpy
+
+from gazpacho.loader.loader import ObjectBuilder
+
+### SAINDO ###############
+def on_quit(window1):
+  gtk.main_quit()
+
+### FUNCAO COMECAR BOTAO ###########
+def funcao_comecar(button):
+  global tam_rede, psitio, gc, altura, fps, CONTINUAR_ANIM, tam_rede, MODO_ATUALIZACAO, matriz, matrizvelha, pmc, pmc_pausa
+
+  MODO_ATUALIZACAO =  'por pmc'
+  
+   # obtendo altura e largura da area de desenho
+  altura, largura = wt.get_widget("drawingarea1").size_request()
+
+  # Inicializando a animacao
+  if (wt.get_widget("botao_comecar").get_label() == "Comecar"):
+
+    # determinando o tamanho da rede em sitios
+    tam_rede = int(wt.get_widget("tam_rede").get_text())
+
+    # determinar o parametro da quantidade de pixels por sitio
+    psitio = (1.0*altura)/tam_rede
+    print "altura %d largura %d psitio %f" % (altura,largura,psitio)
+
+    # inicializando as matrizes
+    matriz = numpy.array(tam_rede*[tam_rede*[0]])
+    matrizvelha = numpy.array(tam_rede*[tam_rede*[0]])
+
+    # determinando o fps
+#    fps = float(wt.get_widget("entry_fps").get_text())
+    fps=40
+
+    # atualiza o status do programa
+    wt.get_widget("label_status").set_text(" Animacao em andamento...")
+
+    # troca o label do botao
+    wt.get_widget("botao_comecar").set_label("Pausar")
+
+    # variavel CONTINUAR_ANIM
+    CONTINUAR_ANIM = 1
+
+    # funcao timeout
+    if (MODO_ATUALIZACAO == 'por pmc'):
+      gobject.timeout_add(int(1000/fps), get_1_pmc)
+    else:
+      print "Problema flag atualizacao."
+
+  elif (wt.get_widget("botao_comecar").get_label() == "Pausar"):
+    # troca o label do botao
+    wt.get_widget("botao_comecar").set_label("Continuar")
+    # atualiza o status do programa
+    wt.get_widget("label_status").set_text(" Animacao pausada")
+    pmc_pausa = pmc
+    CONTINUAR_ANIM = 0
+
+  elif (wt.get_widget("botao_comecar").get_label() == "Continuar"):
+    CONTINUAR_ANIM = 1
+    # atualiza o status do programa
+    wt.get_widget("label_status").set_text(" Animacao em andamento...")
+    # troca o label do botao
+    wt.get_widget("botao_comecar").set_label("Pausar")
+    # reinicia a coleta de dados do stdin
+    if (MODO_ATUALIZACAO == 'por pmc'):
+      gobject.timeout_add(int(1000/fps), get_1_pmc)
+    else:
+      print "Problema flag atualizacao."
+
+### FUNCAO GET_1_PMC ############## Essa funcao pega tam_rede^2 linhas do stdin e faz os retangulos apropriados
+def get_1_pmc():
+
+  global tam_rede, draw_area, gc_red, gc_white, gc_blue, label_pmc_widget, pmc, pmc_pausa, matriz, matrizvelha
+
+  while gtk.events_pending():
+    gtk.main_iteration(False)
+
+  if (CONTINUAR_ANIM == 0):
+    # parando o timeout
+    return False
+
+  # primeiramente encher a matriz com tam_rede * tam_rede sitios
+  for i in xrange(0,tam_rede*tam_rede):
+    line = sys.stdin.readline()
+    if (line != ""):
+      if (line.find("#")==-1): # ignorar comentario
+        listalinha = line.split()
+        x, y, z = int(listalinha[0]), int(listalinha[1]), int(listalinha[2])
+        if (x < tam_rede and y < tam_rede and (matriz[x][y] != z) ):
+          matriz[x][y] = z
+        else:
+          pass
+    else:
+      # atualiza o status do programa
+      wt.get_widget("label_status").set_text(" Animacao finalizada.")
+      return False
+
+  # depois pintar
+  for i in xrange(0,tam_rede):
+    for j in xrange(0,tam_rede):
+      # escolher a cor a partir do z e desenhar o retangulo
+        if (matriz[i][j] != matrizvelha[i][j] or pmc == pmc_pausa):
+          matrizvelha[i][j] = matriz[i][j] # atualizar matrizvelha
+          if (matriz[i][j] == 0):
+            draw_area.draw_rectangle(gc_blue, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
+          elif (matriz[i][j] == 1):
+            draw_area.draw_rectangle(gc_white, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
+          elif (matriz[i][j] == 2):
+            draw_area.draw_rectangle(gc_red, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
+
+  # atualizar o label
+  label_pmc_widget.set_label(str(pmc))
+  pmc = pmc + 1
+
+  return True
+
+
+def expose_handler(widget, event):
+
+  global tam_rede, draw_area, gc_red, gc_white, gc_blue, label_pmc_widget, pmc, pmc_pausa, matriz, matrizvelha
+
+  # determinando o tamanho da rede em sitios
+  tam_rede = int(wt.get_widget("tam_rede").get_text())
+                                    
+  # depois pintar
+  for i in xrange(0,tam_rede):
+    for j in xrange(0,tam_rede):
+      # escolher a cor a partir do z e desenhar o retangulo
+        if (matriz[i][j] == 0):
+          draw_area.draw_rectangle(gc_blue, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
+        elif (matriz[i][j] == 1):
+          draw_area.draw_rectangle(gc_white, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
+        elif (matriz[i][j] == 2):
+          draw_area.draw_rectangle(gc_red, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
+            
+  width, height = draw_area.get_size ()
+  pixbuf = gtk.gdk.Pixbuf (gtk.gdk.COLORSPACE_RGB, 0, 8, width, height)
+  pixbuf.get_from_drawable (draw_area, draw_area.get_colormap (),0, 0, 0, 0, width, height)
+  
+  pixbuf.save ("./123.png", "png")
+                                      
+
+### MAIN ###########
+if __name__ == '__main__':
+  
+  wt = ObjectBuilder('./openlattice2.skel')
+  wt.signal_autoconnect(globals())
+
+  # widget para a area de desenho
+  draw_area = wt.get_widget("drawingarea1").window
+  # widget label_pmc
+  label_pmc_widget = wt.get_widget("label_pmc")
+
+  # alocando cores
+  colormap = wt.get_widget("drawingarea1").get_colormap()
+  blue = colormap.alloc_color('blue')
+  white = colormap.alloc_color('white')
+  red = colormap.alloc_color('red')
+
+  # declarando variaveis
+  psitio=0.0
+  pmc=1
+  pmc_pausa=1
+  CONTINUAR_ANIM=0
+
+  # obtendo altura e largura da area de desenho
+  altura, largura = wt.get_widget("drawingarea1").size_request()
+
+  # desenhando o fundo
+  gc = wt.get_widget("drawingarea1").window.new_gc(foreground=None, background=None, font=None, function=-1, fill=-1, tile=None, stipple=None, clip_mask=None, subwindow_mode=-1, ts_x_origin=-1, ts_y_origin=-1, clip_x_origin=-1, clip_y_origin=-1, graphics_exposures=-1, line_width=-1, line_style=-1, cap_style=-1, join_style=-1)
+  wt.get_widget("drawingarea1").window.draw_rectangle(gc,False,0,0,altura,largura)
+
+  # determinado outros gc's
+  gc_red = wt.get_widget("drawingarea1").window.new_gc(foreground=None, background=None, font=None, function=-1, fill=-1, tile=None, stipple=None, clip_mask=None, subwindow_mode=-1, ts_x_origin=-1, ts_y_origin=-1, clip_x_origin=-1, clip_y_origin=-1, graphics_exposures=-1, line_width=-1, line_style=-1, cap_style=-1, join_style=-1)
+  gc_red.foreground = red
+  gc_white = wt.get_widget("drawingarea1").window.new_gc(foreground=None, background=None, font=None, function=-1, fill=-1, tile=None, stipple=None, clip_mask=None, subwindow_mode=-1, ts_x_origin=-1, ts_y_origin=-1, clip_x_origin=-1, clip_y_origin=-1, graphics_exposures=-1, line_width=-1, line_style=-1, cap_style=-1, join_style=-1)
+  gc_white.foreground = white
+  gc_blue = wt.get_widget("drawingarea1").window.new_gc(foreground=None, background=None, font=None, function=-1, fill=-1, tile=None, stipple=None, clip_mask=None, subwindow_mode=-1, ts_x_origin=-1, ts_y_origin=-1, clip_x_origin=-1, clip_y_origin=-1, graphics_exposures=-1, line_width=-1, line_style=-1, cap_style=-1, join_style=-1)
+  gc_blue.foreground = blue
+
+  wt.get_widget("drawingarea1").connect("expose-event", expose_handler)
+
+  gtk.main()
+
