@@ -146,7 +146,7 @@ def expose_handler(widget, event):
 ### MAIN ###########
 if __name__ == '__main__':
   
-  wt = ObjectBuilder('./openlattice2.skel')
+  wt = ObjectBuilder('./openlattice.skel')
   wt.signal_autoconnect(globals())
 
   # widget para a area de desenho
