@@ -135,13 +135,27 @@ def expose_handler(widget, event):
           draw_area.draw_rectangle(gc_white, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
         elif (matriz[i][j] == 2):
           draw_area.draw_rectangle(gc_red, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
-            
-  width, height = draw_area.get_size ()
-  pixbuf = gtk.gdk.Pixbuf (gtk.gdk.COLORSPACE_RGB, 0, 8, width, height)
-  pixbuf.get_from_drawable (draw_area, draw_area.get_colormap (),0, 0, 0, 0, width, height)
+
+######## Save button                                      
+def funcao_gravar(button):
+
+  filename=wt.get_widget("entry1").get_text()
+
+  if (filename!=''):  
   
-  pixbuf.save ("./123.png", "png")
-                                      
+    print wt.get_widget("checkpng").get_active()
+
+    width, height = draw_area.get_size ()
+    pixbuf = gtk.gdk.Pixbuf (gtk.gdk.COLORSPACE_RGB, 0, 8, width, height)
+    pixbuf.get_from_drawable (draw_area, draw_area.get_colormap (),0, 0, 0, 0, width, height)
+
+    if (wt.get_widget("checkpng").get_active()==True):
+      pixbuf.save(filename+".png", "png")
+    if (wt.get_widget("checkps").get_active()==True):
+      pixbuf.save(filename+".ps", "ps")
+    
+  else: print " Filename is blank."
+  
 
 ### MAIN ###########
 if __name__ == '__main__':
