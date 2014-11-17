@@ -143,6 +143,84 @@
                                 <property name="position">2</property>
                             </packing>
                         </child>
+                        <child>
+                            <widget class="GtkFrame" id="frame4">
+                                <property name="border_width">14</property>
+                                <property name="label" context="yes" translatable="yes">Gravar imagem</property>
+                                <property name="visible">True</property>
+                                <child>
+                                    <widget class="GtkVBox" id="vbox4">
+                                        <property name="visible">True</property>
+                                        <child>
+                                            <widget class="GtkLabel" id="label1">
+                                                <property name="label" context="yes" translatable="yes"> Nome do arquivo:</property>
+                                                <property name="visible">True</property>
+                                                <property name="xalign">0.0</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="padding">2</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkEntry" id="entry1">
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="padding">4</property>
+                                                <property name="position">1</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkHBox" id="hbox2">
+                                                <property name="visible">True</property>
+                                                <child>
+                                                    <widget class="GtkCheckButton" id="checkpng">
+                                                        <property name="label" context="yes" translatable="yes">.png</property>
+                                                        <property name="visible">True</property>
+                                                    </widget>
+                                                </child>
+                                                <child>
+                                                    <widget class="GtkCheckButton" id="checkps">
+                                                        <property name="is_focus">True</property>
+                                                        <property name="label" context="yes" translatable="yes">.ps</property>
+                                                        <property name="visible">True</property>
+                                                    </widget>
+                                                    <packing>
+                                                        <property name="position">1</property>
+                                                    </packing>
+                                                </child>
+                                            </widget>
+                                            <packing>
+                                                <property name="position">2</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkButton" id="botaogravar">
+                                                <property name="border_width">4</property>
+                                                <property name="is_focus">True</property>
+                                                <property name="label" context="yes" translatable="yes">Gravar</property>
+                                                <property name="visible">True</property>
+                                                <property name="xalign">1.0</property>
+                                                <signal handler="funcao_gravar" name="clicked"/>
+                                            </widget>
+                                            <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
+                                                <property name="position">3</property>
+                                            </packing>
+                                        </child>
+                                    </widget>
+                                </child>
+                            </widget>
+                            <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="padding">1</property>
+                                <property name="position">3</property>
+                            </packing>
+                        </child>
                     </widget>
                     <packing>
                         <property name="expand">False</property>
