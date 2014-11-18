@@ -38,6 +38,7 @@
                                         <property name="is_focus">True</property>
                                         <property name="label" context="yes" translatable="yes">Comecar</property>
                                         <property name="visible">True</property>
+                                        <signal handler="funcao_comecar" name="clicked"/>
                                     </widget>
                                 </child>
                                 <child>

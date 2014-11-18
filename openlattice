@@ -156,7 +156,55 @@ def funcao_gravar(button):
     
   else: print " Filename is blank."
   
+######## Save button                                      
+def funcao1frame(button):
 
+  #animation must be paused
+
+  global tam_rede, draw_area, gc_red, gc_white, gc_blue, label_pmc_widget, pmc, pmc_pausa, matriz, matrizvelha
+
+#  while gtk.events_pending():
+#    gtk.main_iteration(False)
+
+#  if (CONTINUAR_ANIM == 0):
+    # parando o timeout
+#    return False
+
+  # primeiramente encher a matriz com tam_rede * tam_rede sitios
+  for i in xrange(0,tam_rede*tam_rede):
+    line = sys.stdin.readline()
+    if (line != ""):
+      if (line.find("#")==-1): # ignorar comentario
+        listalinha = line.split()
+        x, y, z = int(listalinha[0]), int(listalinha[1]), int(listalinha[2])
+        if (x < tam_rede and y < tam_rede and (matriz[x][y] != z) ):
+          matriz[x][y] = z
+        else:
+          pass
+    else:
+      # atualiza o status do programa
+      wt.get_widget("label_status").set_text(" Animacao finalizada.")
+      return False
+
+  # depois pintar
+  for i in xrange(0,tam_rede):
+    for j in xrange(0,tam_rede):
+      # escolher a cor a partir do z e desenhar o retangulo
+        if (matriz[i][j] != matrizvelha[i][j] or pmc == pmc_pausa):
+          matrizvelha[i][j] = matriz[i][j] # atualizar matrizvelha
+          if (matriz[i][j] == 0):
+            draw_area.draw_rectangle(gc_blue, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
+          elif (matriz[i][j] == 1):
+            draw_area.draw_rectangle(gc_white, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
+          elif (matriz[i][j] == 2):
+            draw_area.draw_rectangle(gc_red, 1, int(i*psitio), int(j*psitio), int(psitio), int(psitio))
+
+  # atualizar o label
+  label_pmc_widget.set_label(str(pmc))
+  pmc = pmc + 1
+
+  return True
+  
 ### MAIN ###########
 if __name__ == '__main__':
   
