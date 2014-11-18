@@ -30,12 +30,27 @@
                             </packing>
                         </child>
                         <child>
-                            <widget class="GtkButton" id="botao_comecar">
-                                <property name="focus_on_click">False</property>
-                                <property name="is_focus">True</property>
-                                <property name="label" context="yes" translatable="yes">Comecar</property>
+                            <widget class="GtkHBox" id="hbox3">
                                 <property name="visible">True</property>
-                                <signal handler="funcao_comecar" name="clicked"/>
+                                <child>
+                                    <widget class="GtkButton" id="botao_comecar">
+                                        <property name="focus_on_click">False</property>
+                                        <property name="is_focus">True</property>
+                                        <property name="label" context="yes" translatable="yes">Comecar</property>
+                                        <property name="visible">True</property>
+                                    </widget>
+                                </child>
+                                <child>
+                                    <widget class="GtkButton" id="framebutton">
+                                        <property name="label" context="yes" translatable="yes"> &gt; </property>
+                                        <property name="visible">True</property>
+                                        <signal handler="funcao1frame" name="clicked"/>
+                                    </widget>
+                                    <packing>
+                                        <property name="expand">False</property>
+                                        <property name="position">1</property>
+                                    </packing>
+                                </child>
                             </widget>
                             <packing>
                                 <property name="expand">False</property>
@@ -45,6 +60,10 @@
                             </packing>
                         </child>
                     </widget>
+                    <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                    </packing>
                 </child>
                 <child>
                     <widget class="GtkVBox" id="vbox2">
