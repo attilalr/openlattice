@@ -25,7 +25,27 @@ def funcao_comecar(button):
 
     # determinar o parametro da quantidade de pixels por sitio
     psitio = (1.0*altura)/tam_rede
-#    print "altura %d largura %d psitio %f" % (altura,largura,psitio)
+
+    print "old altura:%d psitio:%f\n" % (altura,psitio)
+
+    # tam_rede must be multiple of altura
+    while (psitio-int(psitio)!=0.0):
+      altura=altura+1
+      psitio = (1.0*altura)/tam_rede
+      if (altura==100*largura):
+        print "Stopping due to miscalculations."
+        gtk.main_quit()
+      
+    # set new altura in widget
+#    altura, largura = wt.get_widget("drawingarea1").size_request()
+    print "new altura:%d psitio:%f\n" % (altura,psitio)
+    
+    wt.get_widget("drawingarea1").set_size_request(altura,altura)  
+    alturabox, largurabox = wt.get_widget("vbox1").size_request()
+    wt.get_widget("vbox1").set_size_request(alturabox,altura+80)  
+
+    #adjust altura to psitio be int
+
 
     # inicializando as matrizes
     matriz = numpy.array(tam_rede*[tam_rede*[0]])
@@ -99,6 +119,7 @@ def get_1_pmc():
       return False
 
   # depois pintar
+  print psitio
   for i in xrange(0,tam_rede):
     for j in xrange(0,tam_rede):
       # escolher a cor a partir do z e desenhar o retangulo
