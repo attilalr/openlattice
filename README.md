@@ -21,4 +21,8 @@ A very simple script to install (ubuntu tested) is included, run with:
 
 sudo ./install-debian-ubuntu.sh
 
+***************
+
+http://youtu.be/W8icyfAYde4
+
 
