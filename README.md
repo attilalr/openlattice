@@ -12,3 +12,13 @@ x y color (0,1 or 2 for color).
 python ./data-ol.py | ./openlattice
 
 Press "comecar"
+
+***************
+
+Instalation
+
+A very simple script to install (ubuntu tested) is included, run with:
+
+sudo ./install-debian-ubuntu.sh
+
+
