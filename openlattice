@@ -25,7 +25,7 @@ def funcao_comecar(button):
 
     # determinar o parametro da quantidade de pixels por sitio
     psitio = (1.0*altura)/tam_rede
-    print "altura %d largura %d psitio %f" % (altura,largura,psitio)
+#    print "altura %d largura %d psitio %f" % (altura,largura,psitio)
 
     # inicializando as matrizes
     matriz = numpy.array(tam_rede*[tam_rede*[0]])
@@ -208,7 +208,24 @@ def funcao1frame(button):
 ### MAIN ###########
 if __name__ == '__main__':
   
-  wt = ObjectBuilder('./openlattice.skel')
+  try:
+    wt = ObjectBuilder('./openlattice.skel')
+    flagskelerror1=0
+  except:
+    flagskelerror1=1
+
+  if (flagskelerror1==1):
+    try:
+      wt = ObjectBuilder('/usr/share/openlattice/openlattice.skel')
+      flagskelerror2=0
+    except:
+      flagskelerror2=1
+    
+  if (flagskelerror1==1 and flagskelerror2==1):
+    print " openlattice.skel not found"
+    gtk.main_quit()
+    
+  
   wt.signal_autoconnect(globals())
 
   # widget para a area de desenho
