@@ -117,6 +117,63 @@
                                                 <property name="expand">False</property>
                                             </packing>
                                         </child>
+                                        <child>
+                                            <widget class="GtkLabel" id="label28">
+                                                <property name="justify">right</property>
+                                                <property name="visible">True</property>
+                                                <property name="wrap_mode">word-char</property>
+                                                <property name="xalign">0.0</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="position">1</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkLabel" id="label3">
+                                                <property name="label" context="yes" translatable="yes"> Tamanho da janela:</property>
+                                                <property name="visible">True</property>
+                                            </widget>
+                                            <packing>
+                                                <property name="position">2</property>
+                                            </packing>
+                                        </child>
+                                        <child>
+                                            <widget class="GtkHBox" id="hbox5">
+                                                <property name="visible">True</property>
+                                                <child>
+                                                    <widget class="GtkRadioButton" id="radiobutton1">
+                                                        <property name="label" context="yes" translatable="yes">Pequena</property>
+                                                        <property name="visible">True</property>
+                                                    </widget>
+                                                </child>
+                                                <child>
+                                                    <widget class="GtkRadioButton" id="radiobutton2">
+                                                        <property name="active">False</property>
+                                                        <property name="group">radiobutton1</property>
+                                                        <property name="is_focus">True</property>
+                                                        <property name="label" context="yes" translatable="yes">Media</property>
+                                                        <property name="visible">True</property>
+                                                    </widget>
+                                                    <packing>
+                                                        <property name="position">1</property>
+                                                    </packing>
+                                                </child>
+                                                <child>
+                                                    <widget class="GtkRadioButton" id="radiobutton3">
+                                                        <property name="active">False</property>
+                                                        <property name="group">radiobutton1</property>
+                                                        <property name="label" context="yes" translatable="yes">Grande</property>
+                                                        <property name="visible">True</property>
+                                                    </widget>
+                                                    <packing>
+                                                        <property name="position">2</property>
+                                                    </packing>
+                                                </child>
+                                            </widget>
+                                            <packing>
+                                                <property name="position">3</property>
+                                            </packing>
+                                        </child>
                                     </widget>
                                 </child>
                             </widget>
