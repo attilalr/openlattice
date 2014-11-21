@@ -130,7 +130,7 @@
                                         </child>
                                         <child>
                                             <widget class="GtkLabel" id="label3">
-                                                <property name="label" context="yes" translatable="yes"> Tamanho da janela:</property>
+                                                <property name="label" context="yes" translatable="yes"> Tamanho da janela: (recurso ainda inativo)</property>
                                                 <property name="visible">True</property>
                                             </widget>
                                             <packing>
