@@ -20,6 +20,13 @@ def funcao_comecar(button):
   # Inicializando a animacao
   if (wt.get_widget("botao_comecar").get_label() == "Comecar"):
 
+    if (wt.get_widget("radiobutton1").get_active()==True):
+      altura=300
+    if (wt.get_widget("radiobutton2").get_active()==True):
+      altura=500
+    if (wt.get_widget("radiobutton3").get_active()==True):
+      altura=700
+
     # determinando o tamanho da rede em sitios
     tam_rede = int(wt.get_widget("tam_rede").get_text())
 
